@@ -1,0 +1,9 @@
+type WalletBalance {
+  availableCents: Int!
+  escrowedCents: Int!
+  currency: String!
+}
+
+extend type Query {
+  walletBalance: WalletBalance!
+}

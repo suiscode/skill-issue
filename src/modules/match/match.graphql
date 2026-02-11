@@ -1,0 +1,39 @@
+enum MatchStatus {
+  DRAFT
+  OPEN
+  LIVE
+  RESULT_PENDING
+  SETTLED
+  CANCELLED
+  DISPUTED
+}
+
+type Match {
+  id: ID!
+  lobbyId: ID!
+  betPerPlayerCents: Int!
+  status: MatchStatus!
+  winnerTeamSide: TeamSide
+  resultEvidence: String
+}
+
+input CreateMatchInput {
+  lobbyId: ID!
+  betPerPlayerCents: Int!
+}
+
+input SubmitMatchResultInput {
+  matchId: ID!
+  winnerTeamSide: TeamSide!
+  resultEvidence: String!
+}
+
+extend type Query {
+  matches: [Match!]!
+  match(id: ID!): Match!
+}
+
+extend type Mutation {
+  createMatch(input: CreateMatchInput!): Match!
+  submitMatchResult(input: SubmitMatchResultInput!): Match!
+}

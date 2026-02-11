@@ -1,0 +1,34 @@
+enum TeamSide {
+  A
+  B
+}
+
+type Lobby {
+  id: ID!
+  game: String!
+  region: String!
+  stakePerPlayerCents: Int!
+  teamAUserIds: [String!]!
+  teamBUserIds: [String!]!
+  status: String!
+}
+
+input CreateLobbyInput {
+  game: String!
+  region: String!
+  stakePerPlayerCents: Int!
+}
+
+input JoinLobbyInput {
+  lobbyId: ID!
+  teamSide: TeamSide!
+}
+
+extend type Query {
+  lobbies: [Lobby!]!
+}
+
+extend type Mutation {
+  createLobby(input: CreateLobbyInput!): Lobby!
+  joinLobby(input: JoinLobbyInput!): Lobby!
+}
