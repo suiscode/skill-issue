@@ -3,7 +3,7 @@ import { Zap } from "lucide-react"
 
 export function LandingFooter() {
   return (
-    <footer className="border-t border-border bg-card/30">
+    <footer className="border-t border-border bg-card/25">
       <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 md:grid-cols-4">
           <div className="md:col-span-1">
@@ -16,8 +16,8 @@ export function LandingFooter() {
               </span>
             </Link>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              The most trusted competitive gaming platform for real money
-              matches.
+              Early-access competitive platform focused on verified players and
+              clean match workflows.
             </p>
           </div>
           <div>
@@ -30,7 +30,7 @@ export function LandingFooter() {
                   href="#"
                   className="text-sm text-muted-foreground hover:text-foreground"
                 >
-                  How it Works
+                  Product Roadmap
                 </Link>
               </li>
               <li>
@@ -38,7 +38,7 @@ export function LandingFooter() {
                   href="#"
                   className="text-sm text-muted-foreground hover:text-foreground"
                 >
-                  Games
+                  Match Creation
                 </Link>
               </li>
               <li>
@@ -46,7 +46,7 @@ export function LandingFooter() {
                   href="#"
                   className="text-sm text-muted-foreground hover:text-foreground"
                 >
-                  Leaderboard
+                  Beta Access
                 </Link>
               </li>
             </ul>
@@ -61,7 +61,7 @@ export function LandingFooter() {
                   href="#"
                   className="text-sm text-muted-foreground hover:text-foreground"
                 >
-                  Help Center
+                  Onboarding Guide
                 </Link>
               </li>
               <li>
@@ -77,7 +77,7 @@ export function LandingFooter() {
                   href="#"
                   className="text-sm text-muted-foreground hover:text-foreground"
                 >
-                  Discord
+                  Community
                 </Link>
               </li>
             </ul>
@@ -116,9 +116,9 @@ export function LandingFooter() {
         </div>
         <div className="mt-10 border-t border-border pt-6">
           <p className="text-xs text-muted-foreground">
-            ARENA is a skill-based competitive gaming platform. Real money
-            wagering is subject to local laws and regulations. Players must be
-            18+ to participate. Please play responsibly.
+            ARENA is currently in beta. Features and terms can change quickly
+            as we harden security, anti-abuse, and competitive integrity
+            systems before broader rollout.
           </p>
         </div>
       </div>

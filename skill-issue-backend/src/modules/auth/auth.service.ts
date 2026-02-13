@@ -85,4 +85,19 @@ export class AuthService {
       user,
     };
   }
+
+  async resendVerificationEmail(email: string): Promise<boolean> {
+    const { error } = await this.supabaseAuthService.publicClient.auth.resend({
+      type: 'signup',
+      email,
+    });
+
+    if (error) {
+      throw new BadRequestException(
+        error.message ?? 'Failed to resend verification email',
+      );
+    }
+
+    return true;
+  }
 }

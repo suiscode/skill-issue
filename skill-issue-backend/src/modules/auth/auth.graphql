@@ -17,4 +17,5 @@ type AuthPayload {
 extend type Mutation {
   signUp(input: SignUpInput!): AuthPayload!
   signIn(input: SignInInput!): AuthPayload!
+  resendVerificationEmail(email: String!): Boolean!
 }

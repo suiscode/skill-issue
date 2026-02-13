@@ -71,6 +71,8 @@ export abstract class IMutation {
 
     abstract signIn(input: SignInInput): AuthPayload | Promise<AuthPayload>;
 
+    abstract resendVerificationEmail(email: string): boolean | Promise<boolean>;
+
     abstract createLobby(input: CreateLobbyInput): Lobby | Promise<Lobby>;
 
     abstract joinLobby(input: JoinLobbyInput): Lobby | Promise<Lobby>;

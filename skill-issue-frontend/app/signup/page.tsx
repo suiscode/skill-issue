@@ -6,7 +6,10 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useSignUpMutation } from "@/lib/__generated__/apollo-hooks";
+import {
+  useResendVerificationEmailMutation,
+  useSignUpMutation,
+} from "@/lib/__generated__/apollo-hooks";
 import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,9 +40,13 @@ type SignUpValues = z.infer<typeof signUpSchema>;
 export default function SignUpPage() {
   const router = useRouter();
   const { isAuthenticated, isHydrating } = useAuth();
+  const [pendingEmail, setPendingEmail] = useState("");
   const [awaitingVerification, setAwaitingVerification] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [resendStatus, setResendStatus] = useState("");
   const [signUpMutation, { loading }] = useSignUpMutation();
+  const [resendVerificationEmail, { loading: resendingVerification }] =
+    useResendVerificationEmailMutation();
 
   const form = useForm<SignUpValues>({
     resolver: zodResolver(signUpSchema),
@@ -70,6 +77,8 @@ export default function SignUpPage() {
           },
         },
       });
+      setPendingEmail(values.email);
+      setResendStatus("");
       setAwaitingVerification(true);
       form.reset();
     } catch (submissionError) {
@@ -78,6 +87,27 @@ export default function SignUpPage() {
           ? submissionError.message
           : "Failed to sign up. Please try again.";
       setSubmitError(message);
+    }
+  };
+
+  const onResendVerification = async () => {
+    if (!pendingEmail) {
+      setResendStatus("Missing email. Please sign up again.");
+      return;
+    }
+
+    try {
+      setResendStatus("");
+      await resendVerificationEmail({
+        variables: { email: pendingEmail },
+      });
+      setResendStatus("Verification email resent. Check your inbox.");
+    } catch (error) {
+      setResendStatus(
+        error instanceof Error
+          ? error.message
+          : "Failed to resend verification email.",
+      );
     }
   };
 
@@ -94,8 +124,21 @@ export default function SignUpPage() {
                 Check your email to verify your account before signing in.
               </p>
               <p className="text-xs text-emerald-400/80">
-                We sent a verification link to your inbox (and possibly spam).
+                We sent a verification link to {pendingEmail}. Check inbox and spam.
               </p>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={onResendVerification}
+                disabled={resendingVerification}
+              >
+                {resendingVerification
+                  ? "Resending verification..."
+                  : "Resend verification email"}
+              </Button>
+              {resendStatus ? (
+                <p className="text-xs text-emerald-300">{resendStatus}</p>
+              ) : null}
               <Button asChild className="w-full">
                 <Link href="/signin?created=1">Go to Sign in</Link>
               </Button>

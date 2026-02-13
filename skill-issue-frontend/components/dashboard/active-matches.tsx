@@ -1,34 +1,15 @@
-import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 
 const activeMatches = [
   {
-    id: "match-001",
-    game: "Valorant",
+    id: "draft-001",
+    game: "Beta Queue",
     format: "5v5",
-    bet: "$25",
-    status: "Waiting",
-    players: "7/10",
-    region: "NA East",
-  },
-  {
-    id: "match-002",
-    game: "CS2",
-    format: "5v5",
-    bet: "$50",
-    status: "In Progress",
-    players: "10/10",
-    region: "EU West",
-  },
-  {
-    id: "match-003",
-    game: "Dota 2",
-    format: "5v5",
-    bet: "$10",
-    status: "Waiting",
-    players: "4/10",
-    region: "NA West",
+    bet: "TBD",
+    status: "Planned",
+    players: "0/10",
+    region: "NA",
   },
 ]
 
@@ -37,13 +18,13 @@ export function ActiveMatches() {
     <div className="rounded-xl border border-border bg-card">
       <div className="flex items-center justify-between border-b border-border px-5 py-4">
         <h3 className="text-sm font-semibold text-foreground">
-          Active Matches
+          Match Readiness
         </h3>
         <Badge
           variant="outline"
           className="border-primary/30 bg-primary/10 text-primary text-xs"
         >
-          {activeMatches.length} live
+          Beta
         </Badge>
       </div>
       <div className="divide-y divide-border">
@@ -76,21 +57,14 @@ export function ActiveMatches() {
                   className={`text-[10px] ${
                     match.status === "In Progress"
                       ? "border-success/30 bg-success/10 text-success"
-                      : "border-chart-3/30 bg-chart-3/10 text-chart-3"
+                      : "border-accent/30 bg-accent/10 text-accent"
                   }`}
                 >
                   {match.status}
                 </Badge>
               </div>
-              <Button
-                asChild
-                variant="outline"
-                size="sm"
-                className="border-border bg-transparent text-foreground hover:bg-accent text-xs"
-              >
-                <Link href={`/lobby/${match.id}`}>
-                  {match.status === "Waiting" ? "Join" : "Spectate"}
-                </Link>
+              <Button variant="outline" size="sm" className="text-xs">
+                Setup
               </Button>
             </div>
           </div>

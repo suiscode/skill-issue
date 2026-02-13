@@ -20,4 +20,10 @@ export class AuthResolver {
   signIn(@Args('input') input: SignInInput): Promise<AuthPayloadType> {
     return this.authService.signIn(input);
   }
+
+  @Public()
+  @Mutation(() => Boolean)
+  resendVerificationEmail(@Args('email') email: string): Promise<boolean> {
+    return this.authService.resendVerificationEmail(email);
+  }
 }

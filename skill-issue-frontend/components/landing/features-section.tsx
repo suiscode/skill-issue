@@ -3,21 +3,21 @@ import { Shield, Users, Zap } from "lucide-react"
 const features = [
   {
     icon: Shield,
-    title: "Secure Escrow",
+    title: "Trust-First Onboarding",
     description:
-      "All bets are held in escrow until match completion. Funds are fully protected and automatically distributed to the winners.",
+      "Email verification, profile identity, and transparent permissions are prioritized before scaling money flows.",
   },
   {
     icon: Users,
-    title: "Fair Matchmaking",
+    title: "Structured Match Creation",
     description:
-      "Our ELO-based system ensures balanced matches. Play against opponents of similar skill level for truly competitive games.",
+      "Create clear team formats and lobby rules so competitive games are easy to organize from day one.",
   },
   {
     icon: Zap,
-    title: "Instant Payouts",
+    title: "Fast Iteration",
     description:
-      "Winnings are credited to your wallet in under 30 seconds. Withdraw to your bank or crypto wallet anytime.",
+      "As a beta user, your feedback drives product direction. UX and systems are evolving weekly.",
   },
 ]
 
@@ -25,12 +25,12 @@ export function FeaturesSection() {
   return (
     <section className="px-4 py-24">
       <div className="mx-auto max-w-6xl">
-        <div className="mb-16 text-center">
+        <div className="mb-16 text-center fade-up">
           <h2 className="text-balance text-3xl font-bold text-foreground md:text-4xl">
-            Built for competitive players
+            Built for launch-ready competitive play
           </h2>
           <p className="mt-4 text-muted-foreground text-lg">
-            Every feature designed to make wagering safe, fair, and fast.
+            Core systems first. Real polish next. No fake promises.
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export function FeaturesSection() {
           {features.map((feature) => (
             <div
               key={feature.title}
-              className="group relative rounded-xl border border-border bg-card p-8 transition-all hover:border-primary/30 hover:glow-sm"
+              className="surface-border group relative rounded-xl bg-card/70 p-8 transition-all hover:glow-sm"
             >
               <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary transition-colors group-hover:bg-primary/20">
                 <feature.icon className="h-5 w-5" />
