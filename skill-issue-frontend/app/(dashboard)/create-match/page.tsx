@@ -46,7 +46,7 @@ export default function CreateMatchPage() {
               Create a New Match
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Set up your competitive match and start earning.
+              Configure a beta match template. Real payout and escrow rails are coming next.
             </p>
           </div>
 
@@ -145,7 +145,7 @@ export default function CreateMatchPage() {
                 size="lg"
                 className="glow-md bg-primary text-primary-foreground hover:bg-primary/90 font-semibold"
               >
-                <Link href="/lobby/new-match">Start Match</Link>
+                <Link href="/lobby/new-match">Create Beta Lobby</Link>
               </Button>
             </div>
 
@@ -209,8 +209,8 @@ export default function CreateMatchPage() {
                   </div>
                 </div>
                 <p className="mt-4 text-[10px] text-muted-foreground leading-relaxed">
-                  Winnings are split equally among the winning team. Funds are
-                  held in secure escrow until match completion.
+                  Preview values are non-financial placeholders during beta. Final
+                  payout logic ships after verification and wallet modules are complete.
                 </p>
               </div>
             </div>

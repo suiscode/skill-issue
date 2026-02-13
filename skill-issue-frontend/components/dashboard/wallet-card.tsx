@@ -8,23 +8,24 @@ export function WalletCard() {
       <div className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-primary/5 blur-2xl" />
       <div className="flex items-center gap-2 text-muted-foreground">
         <Wallet className="h-4 w-4" />
-        <span className="text-sm">Wallet Balance</span>
+        <span className="text-sm">Wallet</span>
       </div>
       <div className="mt-2 font-mono text-3xl font-bold text-foreground">
-        $247.50
+        Coming Soon
       </div>
       <div className="mt-1 text-xs text-muted-foreground">
-        <span className="text-success">+$45.00</span> from last match
+        Deposit, escrow and payout modules are in active development.
       </div>
       <div className="mt-5 flex gap-3">
         <Button
           asChild
           size="sm"
-          className="bg-primary text-primary-foreground hover:bg-primary/90"
+          variant="outline"
+          className="border-border bg-transparent text-foreground hover:bg-accent"
         >
           <Link href="/wallet">
             <ArrowDownLeft className="mr-1 h-3.5 w-3.5" />
-            Deposit
+            Roadmap
           </Link>
         </Button>
         <Button
@@ -35,7 +36,7 @@ export function WalletCard() {
         >
           <Link href="/wallet">
             <ArrowUpRight className="mr-1 h-3.5 w-3.5" />
-            Withdraw
+            Feedback
           </Link>
         </Button>
       </div>

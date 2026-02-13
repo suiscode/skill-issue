@@ -1,19 +1,20 @@
 import React from "react"
 import type { Metadata, Viewport } from "next"
-import { Inter, JetBrains_Mono } from "next/font/google"
+import { Sora, IBM_Plex_Mono } from "next/font/google"
 import { AppApolloProvider } from "@/components/apollo-provider"
 import { AuthProvider } from "@/components/auth-provider"
 
 import "./globals.css"
 
-const inter = Inter({
+const sora = Sora({
   subsets: ["latin"],
   variable: "--font-sans",
 })
 
-const jetbrainsMono = JetBrains_Mono({
+const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: ["400", "500", "600"],
 })
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body
-        className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}
+        className={`${sora.variable} ${ibmPlexMono.variable} font-sans antialiased`}
       >
         <AuthProvider>
           <AppApolloProvider>{children}</AppApolloProvider>

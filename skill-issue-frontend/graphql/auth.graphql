@@ -19,3 +19,7 @@ mutation SignIn($input: SignInInput!) {
     }
   }
 }
+
+mutation ResendVerificationEmail($email: String!) {
+  resendVerificationEmail(email: $email)
+}

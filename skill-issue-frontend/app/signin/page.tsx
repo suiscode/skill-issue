@@ -6,7 +6,10 @@ import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useSignInMutation } from "@/lib/__generated__/apollo-hooks"
+import {
+  useResendVerificationEmailMutation,
+  useSignInMutation,
+} from "@/lib/__generated__/apollo-hooks"
 import { useAuth } from "@/components/auth-provider"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -31,6 +34,8 @@ export default function SignInPage() {
   const router = useRouter()
   const { isAuthenticated, isHydrating, setSession } = useAuth()
   const [signInMutation, { loading }] = useSignInMutation()
+  const [resendVerificationEmail, { loading: resendingVerification }] =
+    useResendVerificationEmailMutation()
   const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
     defaultValues: {
@@ -39,6 +44,8 @@ export default function SignInPage() {
     },
   })
   const [showCreatedMessage, setShowCreatedMessage] = useState(false)
+  const [isVerificationRequired, setIsVerificationRequired] = useState(false)
+  const [resendStatus, setResendStatus] = useState("")
   const [submitError, setSubmitError] = useState("")
 
   useEffect(() => {
@@ -55,6 +62,8 @@ export default function SignInPage() {
 
   const onSubmit = async (values: SignInValues) => {
     setSubmitError("")
+    setResendStatus("")
+    setIsVerificationRequired(false)
 
     try {
       const result = await signInMutation({
@@ -73,7 +82,33 @@ export default function SignInPage() {
         submissionError instanceof Error
           ? submissionError.message
           : "Failed to sign in. Please try again."
+      const requiresVerification =
+        message.toLowerCase().includes("verify your email") ||
+        message.toLowerCase().includes("email not confirmed")
+      setIsVerificationRequired(requiresVerification)
       setSubmitError(message)
+    }
+  }
+
+  const onResendVerification = async () => {
+    const email = form.getValues("email").trim()
+    if (!email) {
+      setResendStatus("Enter your email first, then resend verification.")
+      return
+    }
+
+    try {
+      setResendStatus("")
+      await resendVerificationEmail({
+        variables: { email },
+      })
+      setResendStatus("Verification email resent. Check your inbox.")
+    } catch (error) {
+      setResendStatus(
+        error instanceof Error
+          ? error.message
+          : "Failed to resend verification email.",
+      )
     }
   }
 
@@ -119,6 +154,27 @@ export default function SignInPage() {
               />
               {submitError ? (
                 <p className="text-sm text-destructive">{submitError}</p>
+              ) : null}
+              {isVerificationRequired ? (
+                <div className="space-y-2 rounded-md border border-amber-500/30 bg-amber-500/10 p-3">
+                  <p className="text-xs text-amber-300">
+                    Your account is not verified yet.
+                  </p>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    className="w-full"
+                    onClick={onResendVerification}
+                    disabled={resendingVerification}
+                  >
+                    {resendingVerification
+                      ? "Resending verification..."
+                      : "Resend verification email"}
+                  </Button>
+                  {resendStatus ? (
+                    <p className="text-xs text-amber-300">{resendStatus}</p>
+                  ) : null}
+                </div>
               ) : null}
               <Button
                 className="w-full"

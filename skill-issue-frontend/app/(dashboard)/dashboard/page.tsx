@@ -1,33 +1,38 @@
+"use client"
+
 import Link from "next/link"
-import { Plus, Trophy, TrendingUp, Target } from "lucide-react"
+import { Plus, ShieldCheck, Target, Wrench } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { TopNavbar } from "@/components/top-navbar"
 import { WalletCard } from "@/components/dashboard/wallet-card"
 import { ActiveMatches } from "@/components/dashboard/active-matches"
 import { MatchHistory } from "@/components/dashboard/match-history"
+import { useAuth } from "@/components/auth-provider"
 
 const quickStats = [
   {
-    label: "Win Rate",
-    value: "68%",
-    icon: Trophy,
-    change: "+3%",
+    label: "Account",
+    value: "Verified",
+    icon: ShieldCheck,
+    change: "Email confirmed",
   },
   {
-    label: "Matches",
-    value: "142",
+    label: "Setup",
+    value: "In Progress",
     icon: Target,
-    change: "+12 this week",
+    change: "Create your first lobby",
   },
   {
-    label: "Earnings",
-    value: "$1,247",
-    icon: TrendingUp,
-    change: "+$180 this week",
+    label: "Build Stage",
+    value: "Beta",
+    icon: Wrench,
+    change: "Weekly improvements",
   },
 ]
 
 export default function DashboardPage() {
+  const { user } = useAuth()
+
   return (
     <>
       <TopNavbar title="Dashboard" />
@@ -36,10 +41,10 @@ export default function DashboardPage() {
         <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
           <div>
             <h2 className="text-2xl font-bold text-foreground">
-              Welcome back, ProXenon
+              Welcome, {user?.username ?? "Player"}
             </h2>
             <p className="text-sm text-muted-foreground">
-              {"Here's what's happening with your matches today."}
+              Beta workspace for setting up your competitive profile and first match flow.
             </p>
           </div>
           <Button
@@ -48,7 +53,7 @@ export default function DashboardPage() {
           >
             <Link href="/create-match">
               <Plus className="mr-1.5 h-4 w-4" />
-              Create New Match
+              Create Your First Match
             </Link>
           </Button>
         </div>

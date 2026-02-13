@@ -37,16 +37,13 @@ export function TopNavbar({ title }: { title: string }) {
         >
           <Bell className="h-4 w-4" />
           <span className="sr-only">Notifications</span>
-          <span className="absolute -right-1 -top-1 flex h-3 w-3 items-center justify-center rounded-full bg-primary text-[8px] font-bold text-primary-foreground">
-            3
-          </span>
         </button>
         <div className="flex items-center gap-2">
           <Badge
             variant="outline"
             className="border-primary/30 bg-primary/10 text-primary font-mono text-xs"
           >
-            $247.50
+            Beta User
           </Badge>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
